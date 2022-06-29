@@ -22,12 +22,12 @@ export default function IndexPage() {
         <title>Roundest Pokémon</title>
       </Head>
 
-      <div className="h-screen flex flex-col justify-center">
-        <h1 className="text-4xl font-extralight mb-8">
+      <div className="p-8 flex flex-col justify-center">
+        <h1 className="text-4xl font-extralight mb-8 text-center">
           Which Pokémon is Rounder?
         </h1>
 
-        <main className="border rounded p-8">
+        <main className="m-auto md:m-0 md:flex md:justify-center md:items-center">
           {firstPokemonData?.sprite ? (
             <Image
               {...firstPokemonData.sprite}
@@ -37,7 +37,7 @@ export default function IndexPage() {
             />
           ) : null}
 
-          <p>Vs.</p>
+          <p className="text-center md:text-start">Vs.</p>
 
           {secondPokemonData?.sprite ? (
             <Image
