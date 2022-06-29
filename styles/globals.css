@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    font-family: Inter, system-ui, sans-serif;
+  }
+
+  @supports (font-variation-settings: normal) {
+    html {
+      font-family: InterVariable, system-ui, sans-serif;
+    }
+  }
+}
+
 body {
   @apply text-white bg-gray-900;
 }
