@@ -11,6 +11,13 @@ export const appRouter = trpc.router().query('get-pokemon-by-id', {
   async resolve({ input }) {
     const pokemon = await pokemonAPI.getPokemonById(input.id);
 
-    return pokemon;
+    const { name, sprites } = pokemon;
+
+    const normalizedPokemon = {
+      name: name,
+      sprite: sprites.front_default,
+    };
+
+    return normalizedPokemon;
   },
 });

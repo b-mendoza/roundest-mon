@@ -9,9 +9,9 @@ export default function IndexPage() {
 
   if (isLoading) return <h1>Loading . . .</h1>;
 
-  const { sprites: firstPokemonSprites } = firstPokemon.data ?? {};
+  const firstPokemonData = firstPokemon.data;
 
-  const { sprites: secondPokemonSprites } = secondPokemon.data ?? {};
+  const secondPokemonData = secondPokemon.data;
 
   return (
     <div className="h-screen flex flex-col justify-center">
@@ -20,20 +20,14 @@ export default function IndexPage() {
       </h1>
 
       <main className="border rounded p-8">
-        {firstPokemonSprites?.front_default ? (
-          <img
-            alt={firstPokemon.data?.name}
-            src={firstPokemonSprites.front_default}
-          />
+        {firstPokemonData?.sprite ? (
+          <img alt={firstPokemonData?.name} src={firstPokemonData.sprite} />
         ) : null}
 
         <p>Vs.</p>
 
-        {secondPokemonSprites?.front_default ? (
-          <img
-            alt={secondPokemon.data?.name}
-            src={secondPokemonSprites.front_default}
-          />
+        {secondPokemonData?.sprite ? (
+          <img alt={secondPokemonData?.name} src={secondPokemonData?.sprite} />
         ) : null}
       </main>
     </div>
