@@ -26,6 +26,7 @@ export default function IndexPage() {
           <Image
             {...firstPokemonData.sprite}
             alt={firstPokemonData?.name}
+            placeholder="blur"
             title={firstPokemonData.name}
           />
         ) : null}
@@ -36,6 +37,7 @@ export default function IndexPage() {
           <Image
             {...secondPokemonData.sprite}
             alt={secondPokemonData?.name}
+            placeholder="blur"
             title={secondPokemonData?.name}
           />
         ) : null}
