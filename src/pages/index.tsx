@@ -1,15 +1,17 @@
 import { trpc } from '@/utils/trpc';
 
 export default function IndexPage() {
-  const { data: firstPokemonData, isLoading: isFirstPokemonLoading } =
-    trpc.useQuery(['get-pokemon-by-id', { id: 2 }]);
+  const firstPokemon = trpc.useQuery(['get-pokemon-by-id', { id: 2 }]);
 
-  const { data: secondPokemonData, isLoading: isSecondPokemonLoading } =
-    trpc.useQuery(['get-pokemon-by-id', { id: 1 }]);
+  const secondPokemon = trpc.useQuery(['get-pokemon-by-id', { id: 1 }]);
 
-  const isLoading = isFirstPokemonLoading || isSecondPokemonLoading;
+  const isLoading = firstPokemon.isLoading || secondPokemon.isLoading;
 
   if (isLoading) return <h1>Loading . . .</h1>;
+
+  const { sprites: firstPokemonSprites } = firstPokemon.data ?? {};
+
+  const { sprites: secondPokemonSprites } = secondPokemon.data ?? {};
 
   return (
     <div className="h-screen flex flex-col justify-center">
@@ -18,11 +20,21 @@ export default function IndexPage() {
       </h1>
 
       <main className="border rounded p-8">
-        <div>{firstPokemonData?.name}</div>
+        {firstPokemonSprites?.front_default ? (
+          <img
+            alt={firstPokemon.data?.name}
+            src={firstPokemonSprites.front_default}
+          />
+        ) : null}
 
         <p>Vs.</p>
 
-        <div>{secondPokemonData?.name}</div>
+        {secondPokemonSprites?.front_default ? (
+          <img
+            alt={secondPokemon.data?.name}
+            src={secondPokemonSprites.front_default}
+          />
+        ) : null}
       </main>
     </div>
   );
