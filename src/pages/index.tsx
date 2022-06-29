@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 import { trpc } from '@/utils/trpc';
 
 export default function IndexPage() {
@@ -21,13 +23,21 @@ export default function IndexPage() {
 
       <main className="border rounded p-8">
         {firstPokemonData?.sprite ? (
-          <img alt={firstPokemonData?.name} src={firstPokemonData.sprite} />
+          <Image
+            {...firstPokemonData.sprite}
+            alt={firstPokemonData?.name}
+            title={firstPokemonData.name}
+          />
         ) : null}
 
         <p>Vs.</p>
 
         {secondPokemonData?.sprite ? (
-          <img alt={secondPokemonData?.name} src={secondPokemonData?.sprite} />
+          <Image
+            {...secondPokemonData.sprite}
+            alt={secondPokemonData?.name}
+            title={secondPokemonData?.name}
+          />
         ) : null}
       </main>
     </div>

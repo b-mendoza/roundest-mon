@@ -1,4 +1,5 @@
 import * as trpc from '@trpc/server';
+import { getPlaiceholder } from 'plaiceholder';
 import { PokemonClient } from 'pokenode-ts';
 import { z } from 'zod';
 
@@ -13,9 +14,23 @@ export const appRouter = trpc.router().query('get-pokemon-by-id', {
 
     const { name, sprites } = pokemon;
 
+    if (typeof sprites.front_default !== 'string') {
+      return {
+        name,
+        sprite: undefined,
+      };
+    }
+
+    const { base64, img } = await getPlaiceholder(sprites.front_default, {
+      size: 4,
+    });
+
     const normalizedPokemon = {
       name: name,
-      sprite: sprites.front_default,
+      sprite: {
+        ...img,
+        blurDataURL: base64,
+      },
     };
 
     return normalizedPokemon;
