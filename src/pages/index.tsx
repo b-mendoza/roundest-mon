@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Head from 'next/head';
 
 import { trpc } from '@/utils/trpc';
 
@@ -16,32 +17,38 @@ export default function IndexPage() {
   const secondPokemonData = secondPokemon.data;
 
   return (
-    <div className="h-screen flex flex-col justify-center">
-      <h1 className="text-4xl font-extralight mb-8">
-        Which Pokémon is Rounder?
-      </h1>
+    <>
+      <Head>
+        <title>Roundest Pokémon</title>
+      </Head>
 
-      <main className="border rounded p-8">
-        {firstPokemonData?.sprite ? (
-          <Image
-            {...firstPokemonData.sprite}
-            alt={firstPokemonData?.name}
-            placeholder="blur"
-            title={firstPokemonData.name}
-          />
-        ) : null}
+      <div className="h-screen flex flex-col justify-center">
+        <h1 className="text-4xl font-extralight mb-8">
+          Which Pokémon is Rounder?
+        </h1>
 
-        <p>Vs.</p>
+        <main className="border rounded p-8">
+          {firstPokemonData?.sprite ? (
+            <Image
+              {...firstPokemonData.sprite}
+              alt={firstPokemonData?.name}
+              placeholder="blur"
+              title={firstPokemonData.name}
+            />
+          ) : null}
 
-        {secondPokemonData?.sprite ? (
-          <Image
-            {...secondPokemonData.sprite}
-            alt={secondPokemonData?.name}
-            placeholder="blur"
-            title={secondPokemonData?.name}
-          />
-        ) : null}
-      </main>
-    </div>
+          <p>Vs.</p>
+
+          {secondPokemonData?.sprite ? (
+            <Image
+              {...secondPokemonData.sprite}
+              alt={secondPokemonData?.name}
+              placeholder="blur"
+              title={secondPokemonData?.name}
+            />
+          ) : null}
+        </main>
+      </div>
+    </>
   );
 }
