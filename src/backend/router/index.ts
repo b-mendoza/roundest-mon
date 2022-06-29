@@ -14,15 +14,17 @@ export const appRouter = trpc.router().query('get-pokemon-by-id', {
 
     const { name, sprites } = pokemon;
 
-    if (typeof sprites.front_default !== 'string') {
+    const { front_default } = sprites.other['official-artwork'];
+
+    if (typeof front_default !== 'string') {
       return {
         name,
         sprite: undefined,
       };
     }
 
-    const { base64, img } = await getPlaiceholder(sprites.front_default, {
-      size: 4,
+    const { base64, img } = await getPlaiceholder(front_default, {
+      size: 16,
     });
 
     const normalizedPokemon = {
