@@ -1,16 +1,13 @@
-import Image from 'next/image';
 import Head from 'next/head';
 
 import { trpc } from '@/utils/trpc';
+
+import { Pokemon } from '@/components/Pokemon';
 
 export default function IndexPage() {
   const firstPokemon = trpc.useQuery(['get-pokemon-by-id', { id: 2 }]);
 
   const secondPokemon = trpc.useQuery(['get-pokemon-by-id', { id: 1 }]);
-
-  const isLoading = firstPokemon.isLoading || secondPokemon.isLoading;
-
-  if (isLoading) return <h1>Loading . . .</h1>;
 
   const firstPokemonData = firstPokemon.data;
 
@@ -22,30 +19,18 @@ export default function IndexPage() {
         <title>Roundest Pokémon</title>
       </Head>
 
-      <div className="p-8 flex flex-col justify-center">
-        <h1 className="text-4xl font-extralight mb-8 text-center">
+      <div className="p-8 flex flex-col min-h-screen">
+        <h1 className="text-3xl font-light mb-8 text-center">
           Which Pokémon is Rounder?
         </h1>
 
-        <main className="m-auto md:m-0 md:flex md:justify-center md:items-center">
-          {firstPokemonData?.sprite ? (
-            <Image
-              {...firstPokemonData.sprite}
-              alt={firstPokemonData?.name}
-              placeholder="blur"
-              title={firstPokemonData.name}
-            />
-          ) : null}
+        <main className="flex flex-col items-center md:flex-row md:justify-center md:items-start">
+          {firstPokemonData?.sprite ? <Pokemon {...firstPokemonData} /> : null}
 
-          <p className="text-center md:text-start">Vs.</p>
+          <p className="text-center my-5 md:m-0 md:mx-5 md:text-start">Vs.</p>
 
           {secondPokemonData?.sprite ? (
-            <Image
-              {...secondPokemonData.sprite}
-              alt={secondPokemonData?.name}
-              placeholder="blur"
-              title={secondPokemonData?.name}
-            />
+            <Pokemon {...secondPokemonData} />
           ) : null}
         </main>
       </div>
