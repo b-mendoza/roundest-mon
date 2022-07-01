@@ -8,6 +8,8 @@ import type { AppProps } from 'next/app';
 
 import type { AppRouter } from '@/pages/api/trpc/[trpc]';
 
+import { getCorrectUrl } from '@/utils/getCorrectUrl';
+
 const NextApp = (props: AppProps) => <props.Component {...props.pageProps} />;
 
 export default withTRPC<AppRouter>({
@@ -16,9 +18,7 @@ export default withTRPC<AppRouter>({
      * If you want to use SSR, you need to use the server's full URL
      * @link https://trpc.io/docs/ssr
      */
-    const url = process.env.NEXT_PUBLIC_VERCEL_URL
-      ? `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/trpc`
-      : 'http://localhost:3000/api/trpc';
+    const url = `${getCorrectUrl()}/api/trpc`;
 
     return {
       url,
