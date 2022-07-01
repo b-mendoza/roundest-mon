@@ -14,7 +14,7 @@ export const appRouter = trpc.router().query('get-pokemon-by-id', {
 
     const { name, sprites } = pokemon;
 
-    const { front_default } = sprites.other['official-artwork'];
+    const { front_default } = sprites;
 
     if (typeof front_default !== 'string') {
       return {
